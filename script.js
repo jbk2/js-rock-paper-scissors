@@ -1,6 +1,6 @@
 const choices = ['rock', 'paper', 'scissors'];
-const humanScore = 0;
-const computerScore = 0;
+let humanScore = 0;
+let computerScore = 0;
 
 function getRandom() {
   return Math.floor(Math.random() * choices.length);
@@ -16,11 +16,13 @@ function getHumanChoice() {
 }
 
 function playRound(humanChoice, computerChoice) { 
+  if (humanChoice === computerChoice) {
+    return `Human played; ${humanChoice}, computer also played; ${computerChoice}, it was a draw, play again`
+  };
+  
   switch (humanChoice) {
     case 'rock':
       switch (computerChoice) {
-        case 'rock':
-          return "draw";
         case 'paper':
           computerScore++;
           return "Computer Wins";
@@ -34,8 +36,6 @@ function playRound(humanChoice, computerChoice) {
         case 'rock':
           humanScore++;
           return "Human Wins";
-        case 'paper':
-          return "draw";
         case 'scissors':
           computerScore++;
           return "Computer Wins";
@@ -49,8 +49,6 @@ function playRound(humanChoice, computerChoice) {
         case 'paper':
           humanScore++;
           return "Human Wins";
-        case 'scissors':  
-          return "draw";
       }
       break;
   }
