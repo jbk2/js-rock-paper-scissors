@@ -12,10 +12,17 @@ function getComputerChoice() {
 
 function getHumanChoice() {
   choice = prompt("1 for rock, 2 for paper, 3 for scissors. What's your choice?")
-  return choice;
+  switch (choice) {
+    case '1':
+      return 'rock';
+    case '2':
+      return 'paper';
+    case '3':
+      return 'scissors';
+  }
 }
 
-function playRound(humanChoice, computerChoice) { 
+function roundOutcome(humanChoice, computerChoice) { 
   if (humanChoice === computerChoice) {
     return `Human played; ${humanChoice}, computer also played; ${computerChoice}, it was a draw, play again`
   };
@@ -54,4 +61,19 @@ function playRound(humanChoice, computerChoice) {
   }
 };
 
-console.log(getHumanChoice());
+function playRound() {
+  let humanChoice = getHumanChoice();
+  let computerChoice = getComputerChoice();
+  let result = roundOutcome(humanChoice, computerChoice);
+  console.log(result);
+  return result;
+}
+
+function playGame() {
+  for(let i = 1; i < 6; i++) {
+    playRound()
+  }
+  console.log(`human score is- ${humanScore}, computer score is ${computerScore}`);
+}
+
+playGame();
