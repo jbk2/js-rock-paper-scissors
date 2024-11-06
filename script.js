@@ -75,44 +75,52 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  function playRound() {
-    let humanChoice = getHumanChoice();
-    let computerChoice = getComputerChoice();
-    let result = roundOutcome(humanChoice, computerChoice);
-    console.log(result);
-    return result;
+  // function playRound() {
+  //   let humanChoice = getHumanChoice();
+  //   let computerChoice = getComputerChoice();
+  //   let result = roundOutcome(humanChoice, computerChoice);
+  //   console.log(result);
+  //   return result;
+  // }
+
+  function updateHtml(element, text) {
+    element.innerHTML = text;
   }
 
-  function playGame() {
-    for(let i = 1; i < 6; i++) {
-      playRound()
-    }
-    console.log(`human score is- ${humanScore}, computer score is ${computerScore}`);
-  }
+  // function playGame() {
+  //   for(let i = 1; i < 6; i++) {
+  //     playRound()
+  //   }
+  //   console.log(`human score is- ${humanScore}, computer score is ${computerScore}`);
+  // }
 
   const buttons = document.querySelectorAll('.btn');
 
-  buttons.forEach(button => {
-    button.addEventListener('click', async (event) => {
-      humanChoice = event.currentTarget.id;
-      humanChoiceCell.innerHTML = `${humanChoice}`
-      // update instructions
-      instructions.innerHTML = "now the computer will make a choice";
-      computerChoice = await getComputerChoice();
-      computerChoiceCell.innerHTML = `${computerChoice}`
-      instructions.innerHTML = `computer chose ${computerChoice}, you chose ${humanChoice}`;
-      roundResult = roundOutcome(humanChoice, computerChoice);
-      await delay(500);
-      instructions.innerHTML = roundResult;
-      humanScoreEl.innerHTML = humanScore;
-      computerScoreEl.innerHTML = computerScore;
-      
-      // update choice table cell
-      // ui element to show computer is choosing
-      // get computer choice
-      // update computer data cell * instruction area
-      // display it's your turn again
-      // update round count 
-    })   
-  });
+  function playRound() {
+    buttons.forEach(button => {
+      button.addEventListener('click', async (event) => {
+        humanChoice = event.currentTarget.id;
+        updateHtml(humanChoiceCell,`${humanChoice}`)
+        // update instructions
+        updateHtml(instructions, 'now the computer will make a choice');
+        computerChoice = await getComputerChoice();
+        updateHtml(computerChoiceCell, `${computerChoice}`);
+        updateHtml(instructions, `computer chose ${computerChoice}, you chose ${humanChoice}`);
+        roundResult = roundOutcome(humanChoice, computerChoice);
+        await delay(500);
+        
+        
+        updateHtml(instructions, roundResult);
+        updateHtml(humanScoreEl, humanScore);
+        updateHtml(computerScoreEl, computerScore);
+        await delay(900);
+        updateHtml(instructions, "Your turn - click your choice");
+        updateHtml(humanChoiceCell, "");
+        updateHtml(computerChoiceCell, "");
+      })
+    });
+  };
+
+  playRound();
+
 });
