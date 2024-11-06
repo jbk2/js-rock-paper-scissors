@@ -4,9 +4,57 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="script.js"></script>
+  <link rel="stylesheet" href="styles.css">
   <title>Document</title>
 </head>
 <body>
+  <div class="results">
+    <div class="running-scores">
+      <h1>Running Score</h1>
+      <table style="padding-top: 21px;">
+        <tr>
+          <th>Human Score - </th>
+          <td id="human-score">0</td>
+        </tr>
+        <tr>
+          <th>Computer Score - </th>
+          <td  id="computer-score">0</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="game-result">
+      <h1>Game Result</h1>
+      <h3 id="game-result" style="padding-left: 1rem; margin-bottom: 0.1rem;">Round#</h3>
+      <table>
+        <tr>
+          <th>You chose:</th>
+          <td id="human-choice" style="width: 6rem;">value</td>
+        </tr>
+        <tr>
+          <th>Computer chose:</th>
+          <td id="computer-choice" style="width: 6rem;">value</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="btns">
+    <div id="rock" class="btn">
+      <p class="icon">🪨</p>
+    </div>
+    <div id="paper" class="btn paper">
+      <p class="icon">🧻</p>
+    </div>
+    <div id="scissors" class="btn scissors">
+      <p class="icon">✂️</p>
+    </div>
+  </div>
+
+  <div class="dialogue" style="margin-left: 4rem;">
+    <h3>Instructions:</h3>
+    <p id="instructions">Your turn - click your choice</p>
+  </div>
   
 </body>
 </html>

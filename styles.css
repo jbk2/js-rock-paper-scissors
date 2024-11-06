@@ -1,0 +1,38 @@
+body {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.results {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  margin-bottom: 4rem;
+  padding-left: 2rem;
+  padding-left: 2rem;
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+}
+
+.btn {
+  width: 10rem;
+  height: auto;
+  border: 2px, solid, black;
+  border-radius: 10%;
+  background-color: pink;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.icon {
+  font-size: 3rem;
+}
+
+th {
+  text-align: left;
+  padding-right: 2rem;
+}
