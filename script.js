@@ -1,14 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-
-  const choices = ['rock', 'paper', 'scissors'];
-  let humanScore = 0;
-  let computerScore = 0;
-  let humanChoice, computerChoice;
-  const humanChoiceCell = document.getElementById('human-choice');
-  const humanScoreEl = document.getElementById('human-score');
-  const computerChoiceCell = document.getElementById('computer-choice');
-  const computerScoreEl = document.getElementById('computer-score');
-  const instructions = document.getElementById('instructions');
+  let humanScore = 0, computerScore = 0, humanChoice, computerChoice, recordNumber;
+  const choices = ['rock', 'paper', 'scissors'],
+    humanChoiceCell = document.getElementById('human-choice'),
+    humanScoreEl = document.getElementById('human-score'),
+    computerChoiceCell = document.getElementById('computer-choice'),
+    computerScoreEl = document.getElementById('computer-score'),
+    instructions = document.getElementById('instructions'),
+    buttons = document.querySelectorAll('.btn');
 
 
   function delay(ms) {
@@ -94,7 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
   //   console.log(`human score is- ${humanScore}, computer score is ${computerScore}`);
   // }
 
-  const buttons = document.querySelectorAll('.btn');
 
   function playRound() {
     buttons.forEach(button => {
