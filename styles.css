@@ -11,13 +11,13 @@ body {
   padding-left: 2rem;
 }
 
-.btns {
+.icon-btns {
   display: flex;
   justify-content: center;
   gap: 4rem;
 }
 
-.btn {
+.icon-btn {
   width: 10rem;
   height: auto;
   border: 2px, solid, black;
@@ -26,6 +26,12 @@ body {
   display: flex;
   justify-content: center;
   cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.icon-btn.animated {
+  transform: scale(1.05);
+  opacity: 0.8;
 }
 
 .icon {
@@ -35,4 +41,29 @@ body {
 th {
   text-align: left;
   padding-right: 2rem;
+}
+
+dialog {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  border: 2px solid black;
+  border-radius: 1rem;
+  background-color: pink;
+}
+
+.round-btns {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.round-btn {
+  font-weight: bold;
+  font-size: large;
+  border: 2px solid black;
+  filter: drop-shadow(3px 3px 4px blue);
+  border-radius: 0.4rem;
+  background-color: lightblue;
+  cursor: pointer;
+  width: 6rem;
+  height: 2.5rem;
 }

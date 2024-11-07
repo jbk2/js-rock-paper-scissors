@@ -1,16 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
-  let humanScore = 0, computerScore = 0, humanChoice, computerChoice, recordNumber;
+  let humanScore = 0, computerScore = 0, roundNumber = 0, humanChoice, computerChoice, roundsInGame;
   const choices = ['rock', 'paper', 'scissors'],
-    humanChoiceCell = document.getElementById('human-choice'),
-    humanScoreEl = document.getElementById('human-score'),
-    computerChoiceCell = document.getElementById('computer-choice'),
-    computerScoreEl = document.getElementById('computer-score'),
-    instructions = document.getElementById('instructions'),
-    buttons = document.querySelectorAll('.btn');
-
-
+  humanChoiceCell = document.getElementById('human-choice'),
+  humanScoreEl = document.getElementById('human-score'),
+  computerChoiceCell = document.getElementById('computer-choice'),
+  computerScoreEl = document.getElementById('computer-score'),
+  instructions = document.getElementById('instructions'),
+  dialogModal = document.querySelector('dialog');
+  iconButtons = document.querySelectorAll('.icon-btn'),
+  roundButtons = document.querySelectorAll('.round-btn');
+  roundNumberEl = document.getElementById('round-number');
+  gameResult = document.querySelector('dialog');
+  console.log(dialogModal);
+  
   function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  
+  function updateHtml(element, text) {
+    element.innerHTML = text;
   }
 
   function getRandom() {
@@ -22,17 +30,15 @@ document.addEventListener('DOMContentLoaded', () => {
     return choices[getRandom()];
   }
 
-  function getHumanChoice() {
-    choice = prompt("1 for rock, 2 for paper, 3 for scissors. What's your choice?")
-    switch (choice) {
-      case '1':
-        return 'rock';
-      case '2':
-        return 'paper';
-      case '3':
-        return 'scissors';
-    }
-  }
+  roundButtons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      roundsInGame = event.currentTarget.dataset['name'];
+      dialogModal.close();
+      roundNumber = 1
+      updateHtml(roundNumberEl, `Round# - ${roundNumber}`);
+      playGame();
+    })
+  });
 
   function roundOutcome(humanChoice, computerChoice) { 
     if (humanChoice === computerChoice) {
@@ -41,83 +47,64 @@ document.addEventListener('DOMContentLoaded', () => {
     
     switch (humanChoice) {
       case 'rock':
-        switch (computerChoice) {
-          case 'paper':
-            computerScore++;
-            return "Computer Wins";
-          case 'scissors':
-            humanScore++;
-            return "Human Wins";
-        }
-        break;
+        return computerChoice === 'paper' ? (computerScore++, "Computer Wins") : (humanScore++, "Human Wins");
       case 'paper':
-        switch (computerChoice) {
-          case 'rock':
-            humanScore++;
-            return "Human Wins";
-          case 'scissors':
-            computerScore++;
-            return "Computer Wins";
-        }
-        break;
+        return computerChoice === 'scissors' ? (computerScore++, "Computer Wins") : (humanScore++, "Human Wins");
       case 'scissors':
-        switch (computerChoice) {
-          case 'rock':
-            computerScore++;
-            return "Computer Wins";
-          case 'paper':
-            humanScore++;
-            return "Human Wins";
-        }
-        break;
+        return computerChoice === 'rock' ? (computerScore++, "Computer Wins") : (humanScore++, "Human Wins");
     }
   };
 
-  // function playRound() {
-  //   let humanChoice = getHumanChoice();
-  //   let computerChoice = getComputerChoice();
-  //   let result = roundOutcome(humanChoice, computerChoice);
-  //   console.log(result);
-  //   return result;
-  // }
 
-  function updateHtml(element, text) {
-    element.innerHTML = text;
+  async function handleIconClick(event, resolve) {
+    if ( roundNumber > roundsInGame) return;
+    
+    humanChoice = event.currentTarget.id;
+    button = event.currentTarget;
+    
+    button.classList.add("animated");
+    setTimeout(() => button.classList.remove("animated"), 200); 
+    
+    updateHtml(humanChoiceCell,`${humanChoice}`); updateHtml(instructions, 'now the computer will make a choice');
+    computerChoice = await getComputerChoice();
+    
+    updateHtml(computerChoiceCell, `${computerChoice}`); updateHtml(instructions, `computer chose ${computerChoice}, you chose ${humanChoice}`);
+    roundResult = roundOutcome(humanChoice, computerChoice);
+    
+    await delay(500);
+    
+    updateHtml(instructions, roundResult); updateHtml(humanScoreEl, humanScore); updateHtml(computerScoreEl, computerScore);
+    await delay(900);
+    
+    updateHtml(instructions, "Your turn - click your choice"); updateHtml(humanChoiceCell, ""); updateHtml(computerChoiceCell, "");
+    resolve();
   }
 
-  // function playGame() {
-  //   for(let i = 1; i < 6; i++) {
-  //     playRound()
-  //   }
-  //   console.log(`human score is- ${humanScore}, computer score is ${computerScore}`);
-  // }
-
-
+  // variable to hold icon-button click event listener, so that
+  // it can be effectively identified and removed once click is handled.
+  let playRoundResolver;
+  
   function playRound() {
-    buttons.forEach(button => {
-      button.addEventListener('click', async (event) => {
-        humanChoice = event.currentTarget.id;
-        updateHtml(humanChoiceCell,`${humanChoice}`)
-        // update instructions
-        updateHtml(instructions, 'now the computer will make a choice');
-        computerChoice = await getComputerChoice();
-        updateHtml(computerChoiceCell, `${computerChoice}`);
-        updateHtml(instructions, `computer chose ${computerChoice}, you chose ${humanChoice}`);
-        roundResult = roundOutcome(humanChoice, computerChoice);
-        await delay(500);
-        
-        
-        updateHtml(instructions, roundResult);
-        updateHtml(humanScoreEl, humanScore);
-        updateHtml(computerScoreEl, computerScore);
-        await delay(900);
-        updateHtml(instructions, "Your turn - click your choice");
-        updateHtml(humanChoiceCell, "");
-        updateHtml(computerChoiceCell, "");
-      })
+    return new Promise((resolve) => {
+      playRoundResolver = (event) => {
+        handleIconClick(event, resolve);
+        iconButtons.forEach(button => button.removeEventListener('click', playRoundResolver));
+      };
+      // Add event listeners for this round
+      iconButtons.forEach(button => button.addEventListener('click', playRoundResolver));
     });
   };
 
-  playRound();
+  async function playGame() {
+    roundNumber = 0;
+    while (roundNumber < roundsInGame) {
+      roundNumber++;
+      updateHtml(roundNumberEl, `Round# - ${roundNumber}`);
+      await playRound();
+      updateHtml(instructions, "Game over! Click a round button to play again.");
+    };
+  };
 
+
+  // document.startViewTransition(() => playGame());
 });

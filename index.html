@@ -25,7 +25,7 @@
 
     <div class="game-result">
       <h1>Game Result</h1>
-      <h3 id="game-result" style="padding-left: 1rem; margin-bottom: 0.1rem;">Round#</h3>
+      <h3 id="round-number" style="padding-left: 1rem; margin-bottom: 0.1rem;">Round#</h3>
       <table>
         <tr>
           <th>You chose:</th>
@@ -39,14 +39,27 @@
     </div>
   </div>
 
-  <div class="btns">
-    <div id="rock" class="btn">
+
+  <div>
+    <dialog open style="padding: 2rem;">
+      <h1 style="margin-top: 0; margin-bottom: 0.2rem;">Welcome Rock Paper Scissors in vanilla JS</h1>
+      <p style="text-align: center; margin-bottom: 1.8rem;">Would you like your game to be best of 3, 5 or 7?</p>
+      <div class="round-btns">
+        <button id="3-rounds" class="round-btn" data-name="3">3</button>
+        <button id="5-rounds" class="round-btn" data-name="5">5</button>
+        <button id="7-rounds" class="round-btn" data-name="7">7</button>  
+      </div>
+    </dialog>
+  </div>
+
+  <div class="icon-btns">
+    <div id="rock" class="icon-btn">
       <p class="icon">🪨</p>
     </div>
-    <div id="paper" class="btn paper">
+    <div id="paper" class="icon-btn paper">
       <p class="icon">🧻</p>
     </div>
-    <div id="scissors" class="btn scissors">
+    <div id="scissors" class="icon-btn scissors">
       <p class="icon">✂️</p>
     </div>
   </div>
