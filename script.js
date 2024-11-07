@@ -30,15 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
     return choices[getRandom()];
   }
 
-  roundButtons.forEach((button) => {
-    button.addEventListener('click', (event) => {
-      roundsInGame = event.currentTarget.dataset['name'];
-      dialogModal.close();
-      roundNumber = 1
-      updateHtml(roundNumberEl, `Round# - ${roundNumber}`);
-      playGame();
-    })
-  });
+  function setRoundsPlayGame(event) {
+    roundsInGame = event.currentTarget.dataset['name'];
+    dialogModal.close();
+    playGame();
+  };
 
   function roundOutcome(humanChoice, computerChoice) { 
     if (humanChoice === computerChoice) {
@@ -105,6 +101,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   };
 
+  roundButtons.forEach((button) => {
+    button.addEventListener('click', setRoundsPlayGame);
+  });
 
   // document.startViewTransition(() => playGame());
+
+  // Write game win logic and update
+  // Write next game logic 
 });
