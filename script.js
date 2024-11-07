@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   iconButtons = document.querySelectorAll('.icon-btn'),
   roundButtons = document.querySelectorAll('.round-btn');
   roundNumberEl = document.getElementById('round-number');
-  gameResult = document.querySelector('dialog');
+  gameResult = document.getElementById('game-result');
   console.log(dialogModal);
   
   function delay(ms) {
@@ -97,8 +97,9 @@ document.addEventListener('DOMContentLoaded', () => {
       roundNumber++;
       updateHtml(roundNumberEl, `Round# - ${roundNumber}`);
       await playRound();
-      updateHtml(instructions, "Game over! Click a round button to play again.");
+      updateHtml(instructions, "Your turn - click your choice");
     };
+    updateHtml(instructions, "Game over! Click a round button to play again.");
   };
 
   roundButtons.forEach((button) => {
