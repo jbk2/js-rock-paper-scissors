@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  let humanScore = 0, computerScore = 0, roundNumber = 0, humanChoice, computerChoice, roundsInGame;
+  let humanScore = 0, computerScore = 0, roundNumber = 0, humanChoice, computerChoice, roundsInGame, winner;
   const choices = ['rock', 'paper', 'scissors'],
   humanChoiceCell = document.getElementById('human-choice'),
   humanScoreEl = document.getElementById('human-score'),
@@ -51,6 +51,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  function updateGameOutcome() {
+    if (humanScore > computerScore) {
+      updateHtml(gameResult, `Human Wins ${humanScore}:${computerScore}`);
+    } else if (humanScore < computerScore) {
+      updateHtml(gameResult, `Computer Wins${computerScore}:${humanScore}`);
+    } else {
+      updateHtml(gameResult, "its a draw");
+    }
+  };
+
 
   async function handleIconClick(event, resolve) {
     if ( roundNumber > roundsInGame) return;
@@ -99,7 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
       await playRound();
       updateHtml(instructions, "Your turn - click your choice");
     };
-    updateHtml(instructions, "Game over! Click a round button to play again.");
+    updateGameOutcome();
+    updateHtml(instructions, "Game over! Click the button to play again.");
+    let playAgnBtn = document.createElement('button');
+    playAgnBtn.textContent = "Play again"
+    instructions.insertAdjacentElement('afterend', playAgnBtn)
+    playAgnBtn.addEventListener('click', () => location.reload(true));
   };
 
   roundButtons.forEach((button) => {
