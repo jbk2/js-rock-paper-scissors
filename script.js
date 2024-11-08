@@ -31,7 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function setRoundsPlayGame(event) {
-    roundsInGame = event.currentTarget.dataset['name'];
+    launchConfetti();
+    roundsInGame = event.currentTarget.dataset['rounds'];
     dialogModal.close();
     playGame();
   };
@@ -53,14 +54,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateGameOutcome() {
     if (humanScore > computerScore) {
-      updateHtml(gameResult, `Human Wins ${humanScore}:${computerScore}`);
+      updateHtml(gameResult, `Human Wins - ${humanScore}:${computerScore}`);
+      launchConfetti();
     } else if (humanScore < computerScore) {
-      updateHtml(gameResult, `Computer Wins${computerScore}:${humanScore}`);
+      updateHtml(gameResult, `Computer Wins - ${computerScore}:${humanScore}`);
+      launchConfetti();
     } else {
-      updateHtml(gameResult, "its a draw");
+      updateHtml(gameResult, "It's a draw");
     }
   };
-
 
   async function handleIconClick(event, resolve) {
     if ( roundNumber > roundsInGame) return;
@@ -76,7 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     updateHtml(computerChoiceCell, `${computerChoice}`); updateHtml(instructions, `computer chose ${computerChoice}, you chose ${humanChoice}`);
     roundResult = roundOutcome(humanChoice, computerChoice);
-    
     await delay(500);
     
     updateHtml(instructions, roundResult); updateHtml(humanScoreEl, humanScore); updateHtml(computerScoreEl, computerScore);
@@ -103,15 +104,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function playGame() {
     roundNumber = 0;
+
     while (roundNumber < roundsInGame) {
       roundNumber++;
-      updateHtml(roundNumberEl, `Round# - ${roundNumber}`);
-      await playRound();
+      updateHtml(roundNumberEl, `${roundNumber}`);
       updateHtml(instructions, "Your turn - click your choice");
+      await playRound();
     };
+
     updateGameOutcome();
     updateHtml(instructions, "Game over! Click the button to play again.");
     let playAgnBtn = document.createElement('button');
+    playAgnBtn.id = "play-btn"
     playAgnBtn.textContent = "Play again"
     instructions.insertAdjacentElement('afterend', playAgnBtn)
     playAgnBtn.addEventListener('click', () => location.reload(true));
@@ -126,3 +130,22 @@ document.addEventListener('DOMContentLoaded', () => {
   // Write game win logic and update
   // Write next game logic 
 });
+
+function launchConfetti() {
+  const confettiContainer = document.querySelector('.confetti-container');
+  confettiContainer.innerHTML = ''; // Clear previous confetti
+
+  const confettiCount = 100;
+
+  for (let i = 0; i < confettiCount; i++) {
+    const confetti = document.createElement('div');
+    confetti.classList.add('confetti-piece');
+    
+    // Random horizontal position and slight staggered delay
+    confetti.style.left = `${Math.random() * 100}vw`;
+    confetti.style.top = `${Math.random() * -120 - 30}vh`; // Start well above the viewport
+    confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+
+    confettiContainer.appendChild(confetti);
+  }
+}

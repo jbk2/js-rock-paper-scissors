@@ -7,11 +7,16 @@
   <link rel="stylesheet" href="styles.css">
   <title>Document</title>
 </head>
-<body>
+<body class="">
+  <div class="confetti-container"></div>
   <div class="results">
     <div class="running-scores">
       <h1>Running Score</h1>
-      <table style="padding-top: 21px;">
+      <table style="">
+        <tr>
+          <th>Round No - </th>
+          <td id="round-number"></td>
+        </tr>
         <tr>
           <th>Human Score - </th>
           <td id="human-score">0</td>
@@ -23,10 +28,9 @@
       </table>
     </div>
 
-    <div class="game-results">
-      <h1 id="game-result">Game Result</h1>
-      <h3 id="round-number" style="padding-left: 1rem; margin-bottom: 0.1rem;">Round#</h3>
-      <table>
+    <div class="game-results" style="">
+      
+      <table><h1 id="game-result">Game Result</h1>
         <tr>
           <th>You chose:</th>
           <td id="human-choice" style="width: 6rem;"></td>
@@ -45,9 +49,9 @@
       <h1 style="margin-top: 0; margin-bottom: 0.2rem;">Welcome Rock Paper Scissors in vanilla JS</h1>
       <p style="text-align: center; margin-bottom: 1.8rem;">Would you like your game to be best of 3, 5 or 7?</p>
       <div class="round-btns">
-        <button id="3-rounds" class="round-btn" data-name="3">3</button>
-        <button id="5-rounds" class="round-btn" data-name="5">5</button>
-        <button id="7-rounds" class="round-btn" data-name="7">7</button>  
+        <button id="3-rounds" class="round-btn" data-rounds="3">3</button>
+        <button id="5-rounds" class="round-btn" data-rounds="5">5</button>
+        <button id="7-rounds" class="round-btn" data-rounds="7">7</button>  
       </div>
     </dialog>
   </div>

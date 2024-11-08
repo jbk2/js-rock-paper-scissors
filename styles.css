@@ -1,3 +1,4 @@
+
 body {
   font-family: 'Courier New', Courier, monospace;
 }
@@ -5,7 +6,7 @@ body {
 .results {
   display: flex;
   justify-content: center;
-  gap: 4rem;
+  gap: 8rem;
   margin-bottom: 4rem;
   padding-left: 2rem;
   padding-left: 2rem;
@@ -20,21 +21,24 @@ body {
 .icon-btn {
   width: 10rem;
   height: auto;
-  border: 2px, solid, black;
+  border: 1px, solid, black;
   border-radius: 10%;
   background-color: pink;
   display: flex;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.1s ease;
+  box-shadow: 2px 2px 7px grey;
+  transition: transform 0.05s ease;
+  
 }
 
 .icon-btn.animated {
-  transform: scale(1.05);
-  opacity: 0.8;
+  transform: scale(1.03);
+  opacity: 0.95;
 }
 
 .icon {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
   font-size: 3rem;
 }
 
@@ -45,7 +49,7 @@ th {
 
 dialog {
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  border: 2px solid black;
+  border: 1px solid black;
   border-radius: 1rem;
   background-color: pink;
 }
@@ -66,4 +70,48 @@ dialog {
   cursor: pointer;
   width: 6rem;
   height: 2.5rem;
+}
+
+#game-result {
+  /* position: absolute; */
+  overflow-x: visible;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0vh) rotate(0deg); /* Start above the viewport */
+  }
+  100% {
+    transform: translateY(250vh) rotate(900deg); /* End far below the viewport */
+  }
+}
+
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1000;
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 8px;
+  height: 14px;
+  opacity: 0.8;
+  animation: fall 3.5s linear forwards, rotate 1s linear infinite; /* Adjusted duration for full fall */
+  transform-origin: center;
+  pointer-events: none;
+  animation-fill-mode: forwards;
+}
+
+.confetti-container .confetti-piece:nth-child(odd) {
+  background-color: #ff6347;
+}
+
+.confetti-container .confetti-piece:nth-child(even) {
+  background-color: #3cb371;
 }
