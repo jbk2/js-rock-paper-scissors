@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function setRoundsPlayGame(event) {
-    launchConfetti();
     roundsInGame = event.currentTarget.dataset['rounds'];
     dialogModal.close();
     playGame();
@@ -54,11 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateGameOutcome() {
     if (humanScore > computerScore) {
-      updateHtml(gameResult, `Human Wins - ${humanScore}:${computerScore}`);
       launchConfetti();
+      updateHtml(gameResult, `Human Wins - ${humanScore}:${computerScore}`);
     } else if (humanScore < computerScore) {
       updateHtml(gameResult, `Computer Wins - ${computerScore}:${humanScore}`);
-      launchConfetti();
     } else {
       updateHtml(gameResult, "It's a draw");
     }
@@ -114,10 +112,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateGameOutcome();
     updateHtml(instructions, "Game over! Click the button to play again.");
-    let playAgnBtn = document.createElement('button');
-    playAgnBtn.id = "play-btn"
-    playAgnBtn.textContent = "Play again"
-    instructions.insertAdjacentElement('afterend', playAgnBtn)
+    // let playAgnBtn = document.createElement('button');
+    // playAgnBtn.id = "play-btn"
+    // playAgnBtn.textContent = "Play again"
+    // instructions.insertAdjacentElement('afterend', playAgnBtn)
+
+
+    const playAgainSpan = document.createElement('span');
+    const playAgnBtn = document.createElement('button');
+    playAgnBtn.id = "play-btn";
+    playAgnBtn.textContent = "Play again";
+
+    playAgainSpan.appendChild(playAgnBtn);
+    instructions.appendChild(playAgainSpan);
+
     playAgnBtn.addEventListener('click', () => location.reload(true));
   };
 
@@ -125,17 +133,13 @@ document.addEventListener('DOMContentLoaded', () => {
     button.addEventListener('click', setRoundsPlayGame);
   });
 
-  // document.startViewTransition(() => playGame());
-
-  // Write game win logic and update
-  // Write next game logic 
 });
 
 function launchConfetti() {
   const confettiContainer = document.querySelector('.confetti-container');
   confettiContainer.innerHTML = ''; // Clear previous confetti
 
-  const confettiCount = 100;
+  const confettiCount = 120;
 
   for (let i = 0; i < confettiCount; i++) {
     const confetti = document.createElement('div');

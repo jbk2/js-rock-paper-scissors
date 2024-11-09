@@ -29,7 +29,6 @@ body {
   cursor: pointer;
   box-shadow: 2px 2px 7px grey;
   transition: transform 0.05s ease;
-  
 }
 
 .icon-btn.animated {
@@ -63,8 +62,9 @@ dialog {
 .round-btn {
   font-weight: bold;
   font-size: large;
-  border: 2px solid black;
-  filter: drop-shadow(3px 3px 4px blue);
+  border: 1px solid black;
+  /* filter: drop-shadow(3px 3px 4px blue); */
+  box-shadow: 2px 2px 7px grey;
   border-radius: 0.4rem;
   background-color: lightblue;
   cursor: pointer;
@@ -77,9 +77,20 @@ dialog {
   overflow-x: visible;
 }
 
+#play-btn {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: large;
+  font-weight: 600;
+  height: 3rem;
+  width: 8rem;
+  box-shadow: 2px 2px 7px grey;
+  margin-left: 2rem;
+  cursor: pointer;
+}
+
 @keyframes fall {
   0% {
-    transform: translateY(0vh) rotate(0deg); /* Start above the viewport */
+    transform: translateY(5vh) rotate(0deg); /* Start above the viewport */
   }
   100% {
     transform: translateY(250vh) rotate(900deg); /* End far below the viewport */
@@ -102,7 +113,7 @@ dialog {
   width: 8px;
   height: 14px;
   opacity: 0.8;
-  animation: fall 3.5s linear forwards, rotate 1s linear infinite; /* Adjusted duration for full fall */
+  animation: fall 2.7s linear forwards, rotate 1s linear infinite; /* Adjusted duration for full fall */
   transform-origin: center;
   pointer-events: none;
   animation-fill-mode: forwards;
