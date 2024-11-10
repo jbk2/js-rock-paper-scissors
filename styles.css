@@ -3,14 +3,6 @@ body {
   font-family: 'Courier New', Courier, monospace;
 }
 
-.results {
-  display: flex;
-  justify-content: center;
-  gap: 8rem;
-  margin-bottom: 4rem;
-  padding-left: 2rem;
-  padding-left: 2rem;
-}
 
 .icon-btns {
   display: flex;
@@ -72,9 +64,25 @@ dialog {
   height: 2.5rem;
 }
 
+.results {
+  display: flex;
+  justify-content: center;
+  gap: 8rem;
+  margin-bottom: 4rem;
+  padding-left: 2rem;
+  padding-left: 2rem;
+}
+
+.game-results {
+  position: relative;
+}
+
 #game-result {
-  /* position: absolute; */
-  overflow-x: visible;
+  display: inline-block;        /* Avoids expanding the container */
+  width: 18rem;                 /* Set a fixed width */
+  white-space: nowrap;          /* Prevents line breaks */
+  overflow: visible;            /* Allows the text to overflow beyond its bounds */
+  text-overflow: clip;          /* Avoids any truncation within bounds */
 }
 
 #play-btn {

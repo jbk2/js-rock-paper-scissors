@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   computerChoiceCell = document.getElementById('computer-choice'),
   computerScoreEl = document.getElementById('computer-score'),
   instructions = document.getElementById('instructions'),
+  choicesTable = document.getElementById('choices-table'),
   dialogModal = document.querySelector('dialog');
   iconButtons = document.querySelectorAll('.icon-btn'),
   roundButtons = document.querySelectorAll('.round-btn');
@@ -52,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   function updateGameOutcome() {
+    choicesTable.remove();
     if (humanScore > computerScore) {
       launchConfetti();
       updateHtml(gameResult, `Human Wins - ${humanScore}:${computerScore}`);
