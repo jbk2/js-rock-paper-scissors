@@ -113,12 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     updateGameOutcome();
-    updateHtml(instructions, "Game over! Click the button to play again.");
-    // let playAgnBtn = document.createElement('button');
-    // playAgnBtn.id = "play-btn"
-    // playAgnBtn.textContent = "Play again"
-    // instructions.insertAdjacentElement('afterend', playAgnBtn)
-
+    updateHtml(instructions, "Game over - click the button to play again.");
 
     const playAgainSpan = document.createElement('span');
     const playAgnBtn = document.createElement('button');
@@ -149,7 +144,7 @@ function launchConfetti() {
     
     // Random horizontal position and slight staggered delay
     confetti.style.left = `${Math.random() * 100}vw`;
-    confetti.style.top = `${Math.random() * -120 - 30}vh`; // Start well above the viewport
+    confetti.style.top = `${Math.random() * -120 - 30}vh`;
     confetti.style.animationDelay = `${Math.random() * 0.5}s`;
 
     confettiContainer.appendChild(confetti);
